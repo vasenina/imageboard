@@ -2,9 +2,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Imageboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+     <h1>My Imageboard</h1>
+
+    <div id="main">
+
+        <h2>Publish ypur look of the day here..</h2>
+        <div v-if="images.length" class= "images-list">
+            <div class = "img-card" v-for='img in images' :key='img.id' @click='myCustomFunction(img.name)' >
+               
+                <img :src =img.url>
+                 {{img.title}} 
+            </div>
+        </div>
+        <div  v-else> 
+            <p> no pictures</p>
+        </div>
+       
+    </div>
+
+    <footer>© Vasenina 2022</footer>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
 </html>
