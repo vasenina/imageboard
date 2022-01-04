@@ -1,8 +1,16 @@
 * {
-    background-color: #36ccd9;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    color: #2e016c;
+    background-color: #fff;
+    font-family: Verdana, Geneva, sans-serif;
+    color: #0033a0;
 }
+
+h1 {
+    color: #da291c;
+}
+.uploadForm {
+    margin: 20px 10px;
+}
+
 .images-list {
     display: flex;
     flex-direction: row;
@@ -17,18 +25,20 @@
     align-items: center;
 }
 img {
-    width: 300px;
-    height: 250px;
+    width: 400px;
+    height: 300px;
     object-fit: cover;
+}
+input {
+    margin-right: 10px;
+    border-color: #0033a0;
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
     font-size: 10px;
 }
 
-li:hover,
+.img-card :hover,
 button:hover {
     cursor: pointer;
 }

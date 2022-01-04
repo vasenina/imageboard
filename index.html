@@ -2,19 +2,39 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Imageboard</title>
+    <title>RussianBestPlaces</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <h1>My Imageboard</h1>
+     <h1>Welcome to Russia 🇷🇺</h1>
+     <h2>Best Places to visit in Russia</h2>
 
     <div id="main">
 
-        <h2>Publish ypur look of the day here..</h2>
+        <div class = "uploadForm" v-if = "uploadFormVisible">
+            <p>Share your favorite place in Russia with us.</p>
+            <p v-if = "uploadError">File not uploaded</p>
+            <label for="iTitle">Title:</label>
+            <input type="text" id="iTitle" name="iTitle" v-model = "title" maxlength="30">
+            <label for="iDescription">Description:</label>
+            <input type="text" id="iDescription" name="iDescription" v-model = "description" maxlength="200">
+            <label for="iUsername">Username:</label>
+            <input type="text" id="iUsername" name="iUsername" v-model = "username">
+            <input type="file" accept="image/*" @change="fileSelectHandler">
+            <button @click="clickHandler">Upload</button>
+        </div>
+        <div v-else @click="showForm">
+            <p>Thank you, Your file was sucessfully uploaded</p>
+           <!---- <div v-if="fileUploaded" ></div>
+            <div v-else >
+                <p>sorry, you photo is not uploaded. Click here and try to do it again</p>
+            </div> -->
+        </div>
         <div v-if="images.length" class= "images-list">
             <div class = "img-card" v-for='img in images' :key='img.id' @click='myCustomFunction(img.name)' >
                
                 <img :src =img.url>
+                <p>
                  {{img.title}} 
             </div>
         </div>
