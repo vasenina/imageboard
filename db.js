@@ -23,6 +23,14 @@ module.exports.getImages = () => {
     );
 };
 
+module.exports.getImageByID = (id) => {
+    console.log("DB:  i'm getting image", id);
+    const q = `SELECT url, title, description, username  FROM images 
+                WHERE id = $1`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 module.exports.addImage = (url, username, title, description) => {
     console.log("DB:  i'm adding new image");
     const q = `INSERT INTO images (url, username, title, description) 

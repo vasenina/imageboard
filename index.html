@@ -11,6 +11,8 @@
 
     <div id="main">
 
+<image-view v-if="imageSelected"  v-bind:img-id="imageSelected"  @close="closeComponent" ></image-view>
+
         <div class = "uploadForm" v-if = "uploadFormVisible">
             <p>Share your favorite place in Russia with us.</p>
             <p v-if = "uploadError">File not uploaded</p>
@@ -31,9 +33,9 @@
             </div> -->
         </div>
         <div v-if="images.length" class= "images-list">
-            <div class = "img-card" v-for='img in images' :key='img.id' @click='myCustomFunction(img.name)' >
+            <div class = "img-card" v-for='img in images' :key='img.id' @click="selectImage(img.id)">
                
-                <img :src =img.url>
+                <img :src =img.url class = "img-small">
                 <p>
                  {{img.title}} 
             </div>

@@ -43,6 +43,20 @@ app.get("/get-images", (req, res) => {
         });
 });
 
+app.get("/getimage", (req, res) => {
+    console.log("Get image with id");
+    const { id } = req.query;
+    console.log("Query", req.query);
+    db.getImageByID(id)
+        .then(({ rows }) => {
+            console.log("Image from db:", rows[0]);
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("err in getImagebyID", err);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("POST/upload");
     console.log("req.body: ", req.body);

@@ -1,4 +1,5 @@
 import * as Vue from "./vue.js";
+import imageView from "./imageview.js";
 
 Vue.createApp({
     data() {
@@ -7,7 +8,11 @@ Vue.createApp({
             uploadFormVisible: true,
             uploadError: false,
             images: [],
+            imageSelected: null,
         };
+    },
+    components: {
+        "image-view": imageView,
     },
     mounted() {
         fetch("/get-images")
@@ -20,12 +25,18 @@ Vue.createApp({
         showForm: function () {
             this.uploadFormVisible = true;
         },
-        myCustomFunction: function (arg) {
-            this.petClicked = arg;
+
+        closeComponent() {
+            console.log(
+                "the component has emitted that it should be closed :D"
+            );
+            this.imageSelected = null;
+            // document.body.classList.remove("modal-open");
         },
-        makeDisappear: function () {
-            this.petClicked = null;
-            // Write code here that will make the button disappear when you click on it!
+        selectImage(clickedId) {
+            console.log("user cliked on an img with id:", clickedId);
+            this.imageSelected = clickedId;
+            //document.body.classList.add("modal-open");
         },
         clickHandler: function () {
             console.log("upload", this);
