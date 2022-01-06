@@ -16,16 +16,23 @@
         <div class = "uploadForm" v-if = "uploadFormVisible">
             <p>Share your favorite place with us.</p>
             <p v-if = "uploadError">File not uploaded</p>
+            <div>
             <label for="iTitle">Title:</label>
             <input type="text" id="iTitle" name="iTitle" v-model = "title" maxlength="30">
             <label for="iCountry">Country:</label>
             <input type="text" id="iCountry" name="iCountry" v-model = "country" maxlength="30">
+            </div>
+            <div>
             <label for="iDescription">Description:</label>
             <input type="text" id="iDescription" name="iDescription" v-model = "description" maxlength="200">
             <label for="iUsername">Username:</label>
             <input type="text" id="iUsername" name="iUsername" v-model = "username" maxlength="100">
+            </div>
+            <div>
             <input type="file" accept="image/*" @change="fileSelectHandler">
+            
             <button @click="clickHandler">Upload</button>
+            </div>
         </div>
         <div v-else @click="showForm">
             <p>Thank you, Your file was sucessfully uploaded</p>
@@ -34,17 +41,21 @@
                 <p>sorry, you photo is not uploaded. Click here and try to do it again</p>
             </div> -->
         </div>
-        <div v-if="images.length" class= "images-list">
+        <div v-if="images.length" >
+            <div class = "images-list">
             <div class = "img-card" v-for='img in images' :key='img.id' @click="selectImage(img.id)">
                
                 <img :src =img.url class = "img-small">
                 <p>
                  {{img.title}} 
             </div>
+            </div>
+            <button>Load more</button>
         </div>
         <div  v-else> 
-            <p> no pictures</p>
+            <p class = "nodata"> no pictures</p>
         </div>
+
        
     </div>
 

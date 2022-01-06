@@ -23,18 +23,24 @@ const imageView = {
         notifyParent() {
             this.$emit("close");
         },
+        closeModal(e) {
+            console.log(e.target);
+            // this.$emit("close");
+            if (e.target.classList.contains("overlay")) {
+                this.$emit("close");
+            }
+        },
     },
     template: `<div>
-  <div class = "overlay" > 
+  <div class = "overlay"  @click = "closeModal"> 
       <div class = "modal">
             
                 <span class="close-btn" @click="notifyParent" >X</span>
                 <img :src = image.url class = "img-big" />
-                <comments v-bind:img-id=this.imgId></comments>
-                <h2>{{image.title}}</h2>
-                <h2>{{image.country}}</h2>
+                <h3>{{image.title}}, {{image.country}}</h3>
                 <p>{{image.description}}</p>
-                <p>{{image.username}}</p>
+                <p class = "adding">posted by <b>@{{image.username}}</b></p>
+                <comments v-bind:img-id=this.imgId></comments>
         </div>
    </div>
     

@@ -14,6 +14,9 @@ button {
     padding: 5px 10px;
     border: none;
 }
+.btn-disabled {
+    background-color: #e0918b;
+}
 .uploadForm {
     margin: 20px 10px;
 }
@@ -46,10 +49,12 @@ img {
 input {
     margin-right: 10px;
     border-color: #0033a0;
+    margin-top: 10px;
 }
 
 footer {
     font-size: 10px;
+    margin-top: 30px;
 }
 
 .img-card :hover,
@@ -69,6 +74,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    overflow: scroll;
 }
 
 .close-btn {
@@ -93,4 +99,21 @@ button:hover {
 }
 body.modal-open {
     overflow: hidden;
+}
+.nodata {
+    font-style: italic;
+}
+.comment {
+    background-color: #c7d4f0;
+    border: 1px #0033a0 solid;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+.adding {
+    background-color: #c7d4f0;
+    font-size: small;
+    margin-top: 5px;
+}
+b {
+    background-color: #c7d4f0;
 }

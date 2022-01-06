@@ -72,7 +72,7 @@ app.get("/get-comments", (req, res) => {
 });
 
 app.post("/addcomment", (req, res) => {
-    console.log("POST/addcomment");
+    console.log("POST/addcomment xx");
     console.log("req.body: ", req.body);
 
     //console.log("link to file", s3.getLink(req.file.filename));
@@ -80,14 +80,15 @@ app.post("/addcomment", (req, res) => {
     const { username, comment_text, image_id } = req.body;
     console.log(comment_text, username, image_id);
     db.addComment(comment_text, username, image_id)
-        .then(({ commentId, comment_date }) => {
+        .then(({ rows }) => {
+            console.log("id", rows[0].id, "date", rows[0].created_at);
             res.json({
                 success: true,
                 comment: {
-                    id: commentId,
+                    id: rows[0].id,
                     username: username,
                     comment_text: comment_text,
-                    created_at: comment_date,
+                    created_at: rows[0].created_at,
                 },
             });
         })
