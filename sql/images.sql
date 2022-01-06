@@ -5,27 +5,39 @@ CREATE TABLE images(
     url VARCHAR NOT NULL,
     username VARCHAR NOT NULL,
     title VARCHAR NOT NULL,
+    country VARCHAR NOT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    comment_text VARCHAR NOT NULL, 
+    username VARCHAR NOT NULL,
+    image_id INTEGER NOT NULL UNIQUE REFERENCES images(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO images (url, username, title, country, description) VALUES (
+    'https://s3.amazonaws.com/spicedling/dSVWkDKQkdnwD6biEbEjxUgiaWTlQEwo.jpeg',
     'funkychicken',
-    'Welcome to Spiced and the Future!',
+    'Kamchatka',
+    'Russia',
     'This photo brings back so many great memories.'
 );
 
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
+INSERT INTO images (url, username, title, country, description) VALUES (
+    'https://s3.amazonaws.com/spicedling/q6npWIA2BIH7zulzIbWySr_YrJO61jn0.jpeg',
     'discoduck',
-    'Elvis',
+    'Bastei Bridge',
+    'Germany',
     'We can''t go on together with suspicious minds.'
 );
 
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/XCv4AwJdm6QuzjenFPKJocpipRNNMwze.jpg',
+INSERT INTO images (url, username, title,country, description) VALUES (
+    'https://s3.amazonaws.com/spicedling/8E4WzPj5h86r_vXQ714QJL51N2-m-H2s.jpeg',
     'discoduck',
-    'To be or not to be',
+    'Baikal',
+    'Russia',
     'That is the question.'
 );

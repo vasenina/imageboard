@@ -68,7 +68,7 @@ button:hover {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .close-btn {

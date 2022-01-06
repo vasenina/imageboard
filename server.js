@@ -57,6 +57,45 @@ app.get("/getimage", (req, res) => {
         });
 });
 
+app.get("/get-comments", (req, res) => {
+    console.log("Get comments with id", req.query);
+    const { id } = req.query;
+    console.log("Query", req.query);
+    db.getCommentsByID(id)
+        .then(({ rows }) => {
+            console.log("Comments from db:", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("err in getCommentsbyID", err);
+        });
+});
+
+app.post("/addcomment", (req, res) => {
+    console.log("POST/addcomment");
+    console.log("req.body: ", req.body);
+
+    //console.log("link to file", s3.getLink(req.file.filename));
+
+    const { username, comment_text, image_id } = req.body;
+    console.log(comment_text, username, image_id);
+    db.addComment(comment_text, username, image_id)
+        .then(({ commentId, comment_date }) => {
+            res.json({
+                success: true,
+                comment: {
+                    id: commentId,
+                    username: username,
+                    comment_text: comment_text,
+                    created_at: comment_date,
+                },
+            });
+        })
+        .catch((err) => {
+            console.log("err in getComments", err);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("POST/upload");
     console.log("req.body: ", req.body);
@@ -67,9 +106,9 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         res.json({ success: false });
     } else {
         const url = s3.getLink(req.file.filename);
-        const { title, description, username } = req.body;
+        const { title, description, username, country } = req.body;
         console.log(url, username, title, description);
-        db.addImage(url, username, title, description)
+        db.addImage(url, username, title, description, country)
             .then((imageId) => {
                 res.json({
                     success: true,

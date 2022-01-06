@@ -4,7 +4,6 @@ import imageView from "./imageview.js";
 Vue.createApp({
     data() {
         return {
-            name: "Onion",
             uploadFormVisible: true,
             uploadError: false,
             images: [],
@@ -19,6 +18,7 @@ Vue.createApp({
             .then((resp) => resp.json())
             .then((data) => {
                 this.images = data;
+                console.log("IMAGE view  got images", this.images);
             });
     },
     methods: {
@@ -41,10 +41,21 @@ Vue.createApp({
         clickHandler: function () {
             console.log("upload", this);
             console.log("upload", this.file);
+            if (
+                !this.title ||
+                !this.description ||
+                !this.username ||
+                !this.country ||
+                !this.file
+            ) {
+                console.log("no data");
+                return;
+            }
             const fd = new FormData();
             fd.append("title", this.title);
             fd.append("description", this.description);
             fd.append("username", this.username);
+            fd.append("country", this.country);
             fd.append("file", this.file);
             fetch("/upload", {
                 method: "POST",
