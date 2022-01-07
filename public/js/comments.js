@@ -74,7 +74,7 @@ const comments = {
             <div v-if= "comments.length" >
                  <div v-for='comment in comments' :key='comment.id' class = "comment">
                   {{comment.comment_text}}
-                  <p class="adding">wrote by <b>{{comment.username}}</b> on {{comment.created_at}}</p>
+                  <p class="adding">wrote by <b>@{{comment.username}}</b> on {{comment.created_at}}</p>
                 </div>
             </div>
             <div v-else>

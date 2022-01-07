@@ -19,8 +19,25 @@ console.log(`[db] connecting to ${database}`);
 
 module.exports.getImages = () => {
     return db.query(
-        "SELECT id, url, title  FROM images ORDER BY created_at DESC"
+        `SELECT id, url, title, (SELECT id
+                            FROM images
+                            ORDER BY id ASC
+                            LIMIT 1) AS "lowestId" 
+                            FROM images ORDER BY id DESC LIMIT 6;`
     );
+};
+
+module.exports.getImagesFromId = (id) => {
+    console.log("DB: get images from id ", id);
+    const q = `SELECT id, url, title, (SELECT id
+                            FROM images
+                            ORDER BY id ASC
+                            LIMIT 1) AS "lowestId" FROM images
+                    WHERE id < $1
+                    ORDER BY id DESC
+                    LIMIT 6;`;
+    const params = [id];
+    return db.query(q, params);
 };
 
 module.exports.getImageByID = (id) => {

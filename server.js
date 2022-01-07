@@ -27,12 +27,21 @@ const uploader = multer({
     },
 });
 
-app.use(express.static("./public"));
+if (process.env.NODE_ENV == "production") {
+    app.use((req, res, next) => {
+        if (req.headers["x-forwarded-proto"].startsWith("https")) {
+            return next();
+        }
+        res.redirect(`https://${req.hostname}${req.url}`);
+    });
+}
 
+app.use(express.static("./public"));
 app.use(express.json());
 
 app.get("/get-images", (req, res) => {
     console.log("GET images request");
+
     db.getImages()
         .then(({ rows }) => {
             // console.log("Images from db:", rows);
@@ -43,13 +52,28 @@ app.get("/get-images", (req, res) => {
         });
 });
 
+app.get("/get-images/:id", (req, res) => {
+    //console.log("GET images with id request", lastId);
+    const lastId = req.params.id;
+    console.log("GET images with id request", lastId);
+
+    db.getImagesFromId(lastId)
+        .then(({ rows }) => {
+            // console.log("Images from db from id:", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("err in getImagesFromId", err);
+        });
+});
+
 app.get("/getimage", (req, res) => {
     console.log("Get image with id");
     const { id } = req.query;
     console.log("Query", req.query);
     db.getImageByID(id)
         .then(({ rows }) => {
-            console.log("Image from db:", rows[0]);
+            //console.log("Image from db:", rows[0]);
             res.json(rows[0]);
         })
         .catch((err) => {

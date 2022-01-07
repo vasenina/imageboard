@@ -50,7 +50,7 @@
                  {{img.title}} 
             </div>
             </div>
-            <button>Load more</button>
+            <button @click = "getMoreImages" :class= loadMore :disabled=dis>Load more</button>
         </div>
         <div  v-else> 
             <p class = "nodata"> no pictures</p>

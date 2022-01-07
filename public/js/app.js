@@ -8,6 +8,8 @@ Vue.createApp({
             uploadError: false,
             images: [],
             imageSelected: null,
+            loadMore: "",
+            dis: false,
         };
     },
     components: {
@@ -18,6 +20,15 @@ Vue.createApp({
             .then((resp) => resp.json())
             .then((data) => {
                 this.images = data;
+                if (
+                    this.images.length &&
+                    this.images[this.images.length - 1].lowestId >=
+                        this.images[this.images.length - 1].id
+                ) {
+                    console.log("no more images");
+                    this.loadMore = "btn-disabled";
+                    this.dis = true;
+                }
                 console.log("IMAGE view  got images", this.images);
             });
     },
@@ -38,6 +49,27 @@ Vue.createApp({
             this.imageSelected = clickedId;
             //document.body.classList.add("modal-open");
         },
+        getMoreImages() {
+            console.log("user wants more images");
+            const lastId = this.images[this.images.length - 1].id;
+            console.log("lastID", lastId);
+            fetch("/get-images/" + lastId)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    this.images.push(...data);
+                    if (
+                        this.images.length &&
+                        this.images[this.images.length - 1].lowestId >=
+                            this.images[this.images.length - 1].id
+                    ) {
+                        console.log("no more images");
+                        this.loadMore = "btn-disabled";
+                        this.dis = true;
+                    }
+                    console.log("IMAGEbyId view got images", data);
+                });
+        },
+
         clickHandler: function () {
             console.log("upload", this);
             console.log("upload", this.file);
