@@ -42,8 +42,8 @@ img {
     object-fit: cover;
 }
 .img-big {
-    max-width: 600px;
-    max-height: 450px;
+    max-width: 900px;
+
     object-fit: cover;
 }
 input {
@@ -116,4 +116,15 @@ body.modal-open {
 }
 b {
     background-color: #c7d4f0;
+}
+
+.warning {
+    color: #da291c;
+    background-color: #e7d5d3;
+    border: 1px #da291c solid;
+}
+.success {
+    color: #0033a0;
+    background-color: #c7d4f0;
+    border: 1px #0033a0 solid;
 }

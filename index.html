@@ -15,6 +15,9 @@
 
         <div class = "uploadForm" v-if = "uploadFormVisible">
             <p>Share your favorite place with us.</p>
+            <div v-if = "noDatawarning" class = "warning">
+                !Please full all input fields
+            </div>
             <p v-if = "uploadError">File not uploaded</p>
             <div>
             <label for="iTitle">Title:</label>
@@ -35,7 +38,7 @@
             </div>
         </div>
         <div v-else @click="showForm">
-            <p>Thank you, Your file was sucessfully uploaded</p>
+            <p>Thank you, Your file was sucessfully uploaded. click here to Upload new file</p>
            <!---- <div v-if="fileUploaded" ></div>
             <div v-else >
                 <p>sorry, you photo is not uploaded. Click here and try to do it again</p>

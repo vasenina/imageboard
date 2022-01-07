@@ -105,7 +105,7 @@ app.post("/addcomment", (req, res) => {
     console.log(comment_text, username, image_id);
     db.addComment(comment_text, username, image_id)
         .then(({ rows }) => {
-            console.log("id", rows[0].id, "date", rows[0].created_at);
+            // console.log("id", rows[0].id, "date", rows[0].created_at);
             res.json({
                 success: true,
                 comment: {
@@ -134,11 +134,12 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         const { title, description, username, country } = req.body;
         console.log(url, username, title, description);
         db.addImage(url, username, title, description, country)
-            .then((imageId) => {
+            .then(({ rows }) => {
+                console.log("got this img id", rows[0].id);
                 res.json({
                     success: true,
                     image: {
-                        id: imageId,
+                        id: rows[0].id,
                         username: username,
                         title: title,
                         description: description,

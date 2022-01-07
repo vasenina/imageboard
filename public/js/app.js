@@ -10,6 +10,7 @@ Vue.createApp({
             imageSelected: null,
             loadMore: "",
             dis: false,
+            noDatawarning: false,
         };
     },
     components: {
@@ -35,6 +36,14 @@ Vue.createApp({
     methods: {
         showForm: function () {
             this.uploadFormVisible = true;
+        },
+        clearFields() {
+            this.noDatawarning = false;
+            this.title = null;
+            this.description = null;
+            this.username = null;
+            this.country = null;
+            this.file = null;
         },
 
         closeComponent() {
@@ -71,8 +80,8 @@ Vue.createApp({
         },
 
         clickHandler: function () {
-            console.log("upload", this);
-            console.log("upload", this.file);
+            //console.log("upload", this);
+            // console.log("upload", this.file);
             if (
                 !this.title ||
                 !this.description ||
@@ -81,6 +90,7 @@ Vue.createApp({
                 !this.file
             ) {
                 console.log("no data");
+                this.noDatawarning = true;
                 return;
             }
             const fd = new FormData();
@@ -101,6 +111,7 @@ Vue.createApp({
                     } else {
                         this.images.unshift(result.image);
                         this.uploadFormVisible = false;
+                        this.clearFields();
                     }
 
                     //this.fileUploaded = true;

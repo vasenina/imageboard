@@ -3,6 +3,7 @@ const comments = {
         return {
             comments: [],
             error: true,
+            noDatawarning: false,
         };
     },
     props: ["imgId"],
@@ -24,10 +25,16 @@ const comments = {
             });
     },
     methods: {
+        clearFields() {
+            this.username = null;
+            this.comment = null;
+            this.noDatawarning = false;
+        },
         addComment() {
             console.log("user added a comment");
             if (!this.username || !this.comment) {
                 console.log("no data");
+                this.noDatawarning = true;
                 return;
             }
             console.log("add comment", this.username, this.comment, this.imgId);
@@ -52,6 +59,7 @@ const comments = {
                     } else {
                         this.comments.unshift(result.comment);
                         //this.uploadFormVisible = false;
+                        this.clearFields();
                     }
 
                     //this.fileUploaded = true;
@@ -66,6 +74,9 @@ const comments = {
     },
     template: `<div>
     <h3>Write your comments here</h3>
+     <div v-if = "noDatawarning" class = "warning">
+                !Please full all input fields
+            </div>
             <label for="iComment">Comment:</label>
             <input type="text" id="iComment" name="icomment" v-model="comment" maxlength="200">
             <label for="iUsername">Username:</label>
