@@ -37,8 +37,8 @@
             <button @click="clickHandler">Upload</button>
             </div>
         </div>
-        <div v-else @click="showForm">
-            <p>Thank you, Your file was sucessfully uploaded. click here to Upload new file</p>
+        <div v-else @click="showForm" class = "success">
+            Thank you, your file was sucessfully uploaded. Click here to Upload new file.
            <!---- <div v-if="fileUploaded" ></div>
             <div v-else >
                 <p>sorry, you photo is not uploaded. Click here and try to do it again</p>

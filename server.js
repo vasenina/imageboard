@@ -123,8 +123,8 @@ app.post("/addcomment", (req, res) => {
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("POST/upload");
-    console.log("req.body: ", req.body);
-    console.log("req.file: ", req.file);
+    //console.log("req.body: ", req.body);
+    //console.log("req.file: ", req.file);
 
     //console.log("link to file", s3.getLink(req.file.filename));
     if (!req.file) {
@@ -132,10 +132,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     } else {
         const url = s3.getLink(req.file.filename);
         const { title, description, username, country } = req.body;
-        console.log(url, username, title, description);
+        //console.log(url, username, title, description);
         db.addImage(url, username, title, description, country)
             .then(({ rows }) => {
-                console.log("got this img id", rows[0].id);
+                // console.log("got this img id", rows[0].id);
                 res.json({
                     success: true,
                     image: {

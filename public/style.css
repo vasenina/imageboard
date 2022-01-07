@@ -58,7 +58,8 @@ footer {
 }
 
 .img-card :hover,
-button:hover {
+button:hover,
+.success:hover {
     cursor: pointer;
 }
 
@@ -127,4 +128,6 @@ b {
     color: #0033a0;
     background-color: #c7d4f0;
     border: 1px #0033a0 solid;
+    text-decoration: underline;
+    padding: 10px;
 }
